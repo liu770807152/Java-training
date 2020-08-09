@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/comp6710-cram.iml" filepath="$PROJECT_DIR$/.idea/comp6710-cram.iml" />
+      <module fileurl="file://$PROJECT_DIR$/firstLec/firstLec.iml" filepath="$PROJECT_DIR$/firstLec/firstLec.iml" />
+    </modules>
+  </component>
+</project>
