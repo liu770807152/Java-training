@@ -6,5 +6,5 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
-../out
-./
+
+/../../../../../:\Study\Java程序\comp6710-cram\out/
