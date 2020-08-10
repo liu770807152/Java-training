@@ -54,6 +54,11 @@ public class Integers {
         // 自增和自减
         // 重要！！关于i++和++i的区别：https://blog.csdn.net/xialei199023/article/details/76383013
         sum++;
+        // return sum;
+        // sum += 1;
+        ++sum;
+        // sum += 1;
+        // return sum;
         System.out.println("unary addition: "+sum);
         sum--;
         System.out.println("unary subtraction: "+sum);

@@ -7,10 +7,10 @@ public class PrimitiveDataType {
         System.out.println("i: "+i);
         i += 7;
         System.out.println("i: "+i);
-        // double双精度类型： 占8个字节
+        // double双精度类型：占8个字节
         double j = 256;
         System.out.println("j: "+j);
-        j %= j % 10;
+        j = j % 10;
         System.out.println("j: "+j);
         // float单精度类型：占4个字节
         float k = 999;

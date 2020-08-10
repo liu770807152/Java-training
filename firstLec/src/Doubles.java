@@ -18,7 +18,7 @@ public class Doubles {
         System.out.println("mul: "+(3.0*5.2));
         System.out.println("div: "+(3.0/5.2));
 
-        // 强制类型转换(int)，向下取整，等效于Math.round
+        // 强制类型转换(int)，向下取整
         System.out.println("convert to int (floor): "+((int) (5.2)));
         System.out.println("convert to int (floor): "+((int) (5.9)));
         System.out.println("convert to int (round): "+((int) (Math.round(5.2))));
@@ -27,7 +27,7 @@ public class Doubles {
         System.out.println("convert to int (ceil): "+((int) (Math.ceil(5.9))));
 
         // 保留2位小数
-        System.out.println("format: "+String.format("%.2f",3.124));
+        System.out.println("format: "+String.format("%.5f",3.124));
         System.out.println("max: "+Double.MAX_VALUE);
         System.out.println("min: "+Double.MIN_VALUE);
         System.out.println("min: "+Double.SIZE);

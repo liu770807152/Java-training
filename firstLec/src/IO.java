@@ -7,11 +7,12 @@ public class IO {
         int a = in.nextInt();
         System.out.println("Enter a string b: ");
         // next()读到空格或者换行符就停止
-        String b = in.next();
-        System.out.println("Enter a string b: ");
+        String b1 = in.nextLine();
+        String b2 = in.nextLine();
+        System.out.println("Enter a string c: ");
         // nextLine()仅读到换行符才停止
-        String c = in.nextLine();
+        String c = in.next();
 
-        System.out.println("a: "+a+", b: "+b+c);
+        System.out.println("a: "+a+", b: "+b2+c);
     }
 }
