@@ -8,7 +8,6 @@ public class IO {
         System.out.println("Enter a string b: ");
         String b2 = in.nextLine();
         System.out.println("Enter a string c: ");
-        // nextLine()仅读到换行符才停止
         String c = in.next();
 
         System.out.println("a: "+a+", b: "+b2+c);
