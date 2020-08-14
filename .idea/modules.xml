@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/comp6710-cram.iml" filepath="$PROJECT_DIR$/.idea/comp6710-cram.iml" />
       <module fileurl="file://$PROJECT_DIR$/firstLec/firstLec.iml" filepath="$PROJECT_DIR$/firstLec/firstLec.iml" />
+      <module fileurl="file://$PROJECT_DIR$/secondLec/secondLec.iml" filepath="$PROJECT_DIR$/secondLec/secondLec.iml" />
     </modules>
   </component>
 </project>
