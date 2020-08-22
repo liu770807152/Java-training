@@ -57,6 +57,7 @@ public enum Grade {
     }
 
     class SubClass extends SuperClass{
+        @override
       protected String getName() {
           return “sub class”;
       }

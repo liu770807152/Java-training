@@ -11,6 +11,7 @@ public class Display {
             Dog tmp = (Dog) other;
             tmp.work(); // 狗做的事情
         }
+
     }
 
     public static void main(String[] args) {
@@ -24,4 +25,5 @@ public class Display {
         Cat cat = (Cat) animal;  // 向下转型
         cat.work();  // 调用的是 Cat 的work方法
     }
+
 }
