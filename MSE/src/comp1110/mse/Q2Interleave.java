@@ -64,7 +64,6 @@ public class Q2Interleave {
                 }
             }
         }
-
         return result;
     }
 
