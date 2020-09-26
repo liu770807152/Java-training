@@ -1,6 +1,6 @@
 package fourthLec;
 
-public class SwapLinkedList {
+public class ReverseLinkedList {
     private static class ListNode {
         int value;
         ListNode next;
@@ -19,18 +19,14 @@ public class SwapLinkedList {
         }
     }
 
-    public static ListNode swapPairs(ListNode head) {
-        //终止条件：链表只剩一个节点或者没节点了，没得交换了。返回的是已经处理好的链表
-        if(head == null || head.next == null){
+    public static ListNode reverse(ListNode head) {
+        if (head.next == null) {
             return head;
         }
-        //一共三个节点:head, next, swapPairs(next.next)
-        //下面的任务便是交换这3个节点中的前两个节点
-        ListNode next = head.next;
-        head.next = swapPairs(next.next);
-        next.next = head;
-        //根据第二步：返回给上一级的是当前已经完成交换后，即处理好了的链表部分
-        return next;
+        ListNode last = reverse(head.next);
+        head.next.next = head;
+        head.next = null;
+        return last;
     }
 
     public static void main(String[] args) {
@@ -39,7 +35,7 @@ public class SwapLinkedList {
         root.next.next = new ListNode(3, null);
         System.out.println(root);
 
-        root = swapPairs(root);
+        root = reverse(root);
         System.out.println(root);
     }
 }

@@ -1,28 +1,29 @@
-import comp6710-cram.fourthLec;
+package fourthLec;
 
-public class GenericFruit {
-    class Fruit{
+class GenericFruit {
+    static class Fruit{
         @Override
         public String toString() {
             return "fruit";
         }
     }
 
-    class Apple extends Fruit{
+    static class Apple extends Fruit{
         @Override
         public String toString() {
             return "apple";
         }
     }
 
-    class Person{
+    static class Person{
         @Override
         public String toString() {
             return "Person";
         }
     }
 
-    class GenerateTest<T>{
+    static class GenericTest<T>{
+        // 成员方法，使用了泛型类的类型T
         public void show_1(T t){
             System.out.println(t.toString());
         }
@@ -43,7 +44,7 @@ public class GenericFruit {
         Apple apple = new Apple();
         Person person = new Person();
 
-        GenerateTest<Fruit> generateTest = new GenerateMethod<Fruit>();
+        GenericTest<Fruit> generateTest = new GenericTest<Fruit>();
         //apple是Fruit的子类，所以这里可以
         generateTest.show_1(apple);
         //编译器会报错，因为泛型类型实参指定的是Fruit，而传入的实参类是Person

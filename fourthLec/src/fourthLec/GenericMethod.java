@@ -1,6 +1,6 @@
+package fourthLec;
 
-
-public class genericMethod {
+public class GenericMethod {
     //这个nested class是个泛型类，上节课已经介绍过
     public class Generic<T> {
         private T key;
@@ -23,6 +23,15 @@ public class genericMethod {
          this.key = keu
          }
          */
+
+        /**
+         * @param value
+         * @param <E> 不同于泛型类T的类型
+         * @return Generic类型的对象
+         */
+        public <E> Generic<E> example(E value) {
+            return new Generic<>(value);
+        }
     }
 
     /**
@@ -36,7 +45,7 @@ public class genericMethod {
      */
     public <T> T showKeyName(Generic<T> container){
         System.out.println("container key :" + container.getKey());
-        //当然这个例子举的不太合适，只是为了说明泛型方法的特性。
+        //该方法只是为了说明泛型方法的特性。
         T test = container.getKey();
         return test;
     }
