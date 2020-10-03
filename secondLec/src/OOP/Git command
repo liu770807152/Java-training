@@ -1,6 +1,0 @@
-1 在cwd(current working directory)里，运行命令：git init，创建.git文件夹
-2 随后执行：git add . ，将所有文件纳入git管理
-3 之后执行：git commit -m "Your message"，双引号内填充你的提交信息，-m代表message
-4 最后执行：git push [origin master]，中括号内的内容在大部分情况下可以省略
-5 你的组员push了代码，你每次打开你的项目要做的第一件事就是：git pull [origin master]，把你组员的代码下载下来，否则你push的时候会报异常
-6 其他更多操作详见：https://mp.weixin.qq.com/s/j47tpXQ2RScyiCXTAzw_ag
