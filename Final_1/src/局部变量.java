@@ -1,6 +1,8 @@
-public class Function {
-
+public class 局部变量 {
     // 变量x的生命周期仅存在于boo函数内。boo函数结束后，x也随之死亡。
+
+    String num;
+
     public static void boo(int x) {
         x += 1;
         System.out.println("x is "+x);
@@ -16,14 +18,14 @@ public class Function {
         // jdk1.5 foreach
         for (int temp : array) {
             System.out.println(temp);
-            // 为什么改不了数组？
+            // 能改变数组吗？
             temp += x;
         }
         for (int temp : array) {
             System.out.println(temp);
         }
         for (int i = 0; i < array.length; i++) {
-            // 为什么用索引就可以？
+            // 用索引可以改变数组吗？
             array[i] += x;
         }
         for (int temp : array) {
@@ -32,11 +34,15 @@ public class Function {
         return array;
     }
 
+    局部变量(String x) {
+        this.num = x;
+    }
+
     public static void main(String[] args) {
-        int x = 10; //scope
+        int x = 10;
         System.out.println("x is "+x);
         boo(x);
-        // x还是10
+        // x的值是？
         System.out.println("x is "+x);
         int[] temp = new int[]{0, 1, 2};
         int[] result = add(x, temp);
@@ -44,5 +50,13 @@ public class Function {
             System.out.println(num);
         }
 
+        局部变量 obj1 = new 局部变量("Tom");
+        局部变量 obj2 = new 局部变量("Kay");
+        局部变量 obj3 = new 局部变量("Mom");
+        局部变量[] array = {obj1, obj2, obj3};
+        for (局部变量 t : array) {
+            t.num = "123";
+            System.out.println(t.num);
+        }
     }
 }
