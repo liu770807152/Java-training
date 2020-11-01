@@ -3,57 +3,64 @@ package Map;
 import java.util.LinkedList;
 
 public class HashMap<K, V> implements Map<K, V> {
-    private final int INITIAL_SIZE = 20;
-    private LinkedList<KVPair>[] array = new LinkedList[INITIAL_SIZE];
-    private int elements = 0;
+    final static int DEFAULT_BKTS = 20; // just for testing; make bigger later
+
+    LinkedList<KVPair>[] table;
+    int elements;
+
+    private int hash(K element) { return element == null ? 0 : Math.abs(element.hashCode() % table.length);}
+    public HashMap() {
+        table = new LinkedList[DEFAULT_BKTS];
+    }
 
     class KVPair {
-        private K key;
-        private V value;
+        K key;
+        V value;
 
         KVPair(K key, V value) {
             this.key = key;
             this.value = value;
         }
-
         @Override
         public String toString() {
-            return "(" + key + ", " + value + ")";
+            return "("+key+", "+value+")";
         }
     }
 
-    private int hash(K key) {
-        return Math.abs (key.hashCode () % INITIAL_SIZE);
+    KVPair find(LinkedList<KVPair> ll, K key) {
+        for (KVPair kv : ll) {
+            if ((kv.key == null && key == null) || kv.key.equals(key))
+                return kv;
+        }
+        return null;
     }
 
     @Override
     public void put(K key, V value) {
-        int slot = hash (key);
-        boolean isDuplicate = false;
-        if (array[slot] == null) {
-            array[slot] = new LinkedList<> ();
+        int bkt = hash(key);
+        LinkedList<KVPair> ll = table[bkt];
+        if (ll == null) {
+            table[bkt] = new LinkedList<>();
+            ll = table[bkt];
         }
-        for (KVPair temp : array[slot]) {
-            if (temp.key == key) {
-                isDuplicate = true;
-                temp.value = value;
-                break;
-            }
-        }
-        if (!isDuplicate) {
-            array[slot].add (new KVPair (key, value));
+        KVPair kv = find(ll, key);
+        if (kv == null) {
+            kv = new KVPair(key, value);
+            ll.add(kv);
             elements++;
+        } else {
+            kv.value = value;
         }
     }
 
     @Override
     public void remove(K key) {
-        int slot = hash (key);
-        if (array[slot] == null)
-            return;
-        for (KVPair temp : array[slot]) {
-            if (temp.key == key) {
-                array[slot].remove (temp);
+        int bkt = hash(key);
+        LinkedList<KVPair> ll = table[bkt];
+        if (ll != null) {
+            KVPair kv = find(ll, key);
+            if (kv != null) {
+                ll.remove(kv);
                 elements--;
             }
         }
@@ -61,12 +68,11 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(K key) {
-        int slot = hash (key);
-        if (array[slot] == null)
-            return null;
-        for (KVPair temp : array[slot]) {
-            if (temp.key == key)
-                return temp.value;
+        int bkt = hash(key);
+        LinkedList<KVPair> ll = table[bkt];
+        if (ll != null) {
+            KVPair kv = find(ll, key);
+            return kv == null ? null : kv.value;
         }
         return null;
     }
@@ -78,14 +84,16 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder ();
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] != null) {
-                for (KVPair temp : array[i]) {
-                    result.append (temp.toString () + ", ");
+        String rtn = "";
+        for (int bkt = 0; bkt < table.length; bkt++) {
+            LinkedList<KVPair> ll = table[bkt];
+            if (ll != null) {
+                for (KVPair kv : ll) {
+                    if (!rtn.equals("")) { rtn += ", "; }
+                    rtn += kv;
                 }
             }
         }
-        return result.delete (result.length () - 2, result.length ()).toString ();
+        return rtn;
     }
 }

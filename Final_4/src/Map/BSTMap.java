@@ -1,122 +1,142 @@
 package Map;
 
 public class BSTMap<K, V> implements Map<K, V> {
-    private int elements = 0;
-    private BSTree tree;
+    BSTree tree;
+    int elements;
 
     class KVPair {
-        private K key;
-        private V value;
+        K key;
+        V value;
+
         KVPair(K key, V value) {
             this.key = key;
             this.value = value;
         }
-
         @Override
         public String toString() {
-            return "(" + key + ", " + value + ")";
+            return "("+key+", "+value+")";
         }
     }
 
     class BSTree {
-        private KVPair pair;
-        private BSTree left, right;
+        KVPair kv;
+        BSTree left, right;
 
-        public BSTree add(KVPair pair) {
-            if (pair == null || pair.key == null || pair.value == null)
-                return null;
-            if (this.pair == null) {
-                this.pair = pair;
+        BSTree add(KVPair kv) {
+            if (this.kv == null) {
+                this.kv = kv;
                 return this;
-            }
-            else if (this.pair.equals (pair)) {
-                return null;
-            }
-            else if (this.pair.key.equals (pair.key)) {
-                this.pair.value = pair.value;
-                return null;
-            }
-            else if (pair.key.hashCode () > this.pair.key.hashCode ()) {
-                if (right == null)
-                    right = new BSTree ();
-                return right.add (pair);
-            }
-            else {
-                if (left == null)
-                    left = new BSTree ();
-                 return left.add (pair);
+            } else if (this.kv.equals(kv)) {
+                return null; // already in tree (signify this with null)
+            } else if (kv.key == null || (this.kv.key != null && kv.key.hashCode() > this.kv.key.hashCode())) {  // FIXME deal with null key!!
+                if (right == null) {
+                    right = new BSTree();
+                }
+                return right.add(kv);
+            } else {
+                if (left == null) {
+                    left = new BSTree();
+                }
+                return left.add(kv);
             }
         }
 
-        public void add(BSTree other) {
-            if (other != null) {
-                add (other.pair);
-                add (other.left);
-                add (other.right);
+        void add(BSTree subtree) {
+            if (subtree != null && subtree.kv != null) {
+                add(subtree.kv);
+                add(subtree.right);
+                add(subtree.left);
             }
         }
 
-        BSTree find(K key) {
-            if (key == null || this.pair == null)
-                return null;
-            else if (this.pair.key.equals (key))
-                return this;
-            else if (key.hashCode () > pair.key.hashCode ())
-                return right == null ? null : right.find(key);
-            else
-                return left == null ? null : left.find(key);
+        BSTree find(K key) { // FIXME deal with null key
+            if (this.kv != null) {
+                if (key == null) {
+                    if (this.kv.key == null) {
+                        return this;
+                    } else {
+                        return right == null ? null : right.find(key);
+                    }
+                } else {
+                    if (this.kv.key != null && this.kv.key.equals(key)) // found
+                    {
+                        return this;
+                    } else if (kv.key == null || key.hashCode() <= this.kv.key.hashCode()) {
+                        if (left == null) {
+                            return null;
+                        } else {
+                            return left.find(key);
+                        }
+                    } else {
+                        if (right == null) {
+                            return null;
+                        } else {
+                            return right.find(key);
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         @Override
         public String toString() {
-            String result = "";
-            if (pair != null) {
-                if (left != null && left.pair != null)
-                    result += left + ", ";
-                result += pair;
-                if (right != null && right.pair != null)
-                    result += ", " + right;
+            String rtn = "";
+            if (this.kv != null) {
+                if (left != null && left.kv != null) {
+                    rtn += left.toString() + ", ";
+                }
+                rtn += this.kv;
+                if (right != null && right.kv != null) {
+                    rtn += ", " + right.toString();
+                }
             }
-            return result;
+            return rtn;
         }
     }
 
     @Override
     public void put(K key, V value) {
-        if (key != null) {
-            if (tree == null)
-                tree = new BSTree ();
-            if (tree.add (new KVPair (key, value)) != null)
-                elements++;
+        if (tree == null) {
+            tree = new BSTree();
+        }
+
+        BSTree t = tree.find(key);
+        if (t != null) {
+            t.kv.value = value; // found, so just update the value
+        } else {
+            KVPair kv = new KVPair(key, value);
+            tree.add(kv);
+            elements++;
         }
     }
 
     @Override
     public void remove(K key) {
-        if (tree != null) {
-            BSTree root = tree.find (key);
-            BSTree lchild, rchild;
-            if (root != null) {
-                lchild = root.left;
-                rchild = root.right;
-                root.pair = null;
-                root.left = root.right = null;
-                tree.add (lchild);
-                tree.add (rchild);
-                elements--;
-            }
+        BSTree root = tree.find(key);
+        if (root != null) {
+            BSTree l = root.left;  // we don't want to remove this
+            BSTree r = root.right; // we don't want to remove this
+            root.kv = null;  // this the thing we were removing
+            elements--;
+            root.left = null;
+            root.right = null;
+            tree.add(l);
+            tree.add(r);
         }
     }
 
     @Override
     public V get(K key) {
-        if (tree == null)
+        if (tree == null) {
             return null;
-        else {
-            if (tree.find (key) == null)
+        } else {
+            BSTree t = tree.find(key);
+            if (t == null) {
                 return null;
-            else
-                return tree.find (key).pair.value;
+            } else {
+                return t.kv.value;
+            }
         }
     }
 
@@ -127,12 +147,7 @@ public class BSTMap<K, V> implements Map<K, V> {
 
     @Override
     public String toString() {
-        String result = "";
-        if (tree == null)
-            return null;
-        else {
-            result += tree;
-            return result;
-        }
+        String t = tree == null ? "" : tree.toString();
+        return t;
     }
 }
