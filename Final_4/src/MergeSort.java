@@ -23,6 +23,7 @@ public class MergeSort {
         }
         int[] result = new int[left.length + right.length];
         int l = 0, r = 0, cur = 0;
+        // 优先合并左数组
         while (l < left.length && r < right.length) {
             int leftNum = left[l];
             int rightNum = right[r];
@@ -32,6 +33,7 @@ public class MergeSort {
                 result[cur++] = right[r++];
             }
         }
+        // 合并剩下的右数组
         if (cur < left.length + right.length) {
             if (l == left.length) {
                 while (r < right.length) {
@@ -65,7 +67,7 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
-        int a[] = { 56, 29, 35, 42, 15, 41, 75, 21 };
+        int[] a = { 56, 29, 35, 42, 15, 41, 75, 21 };
         a = mergeSort(a);
         System.out.println("排序结果：" + Arrays.toString(a));
     }
