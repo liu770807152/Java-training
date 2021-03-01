@@ -1,5 +1,6 @@
 package Queue;
 
+// 先进先出
 public interface Queue<T> {
     /**
      * 返回队列长度
@@ -30,7 +31,7 @@ public interface Queue<T> {
     /**
      * 是否包含某元素
      */
-    boolean  contains(T data);
+    boolean contains(T data);
 
     @Override
     String toString();

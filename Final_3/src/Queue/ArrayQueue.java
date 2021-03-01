@@ -9,7 +9,7 @@ public class ArrayQueue<T> implements Queue<T> {
     /**
      * 容量大小默认为2
      */
-    private int capacity = 2;
+    private int initialCapacity = 2;
 
     private final double GROWTH_RATE = 1.5;
 
@@ -21,7 +21,7 @@ public class ArrayQueue<T> implements Queue<T> {
     private int size;
 
     public ArrayQueue() {
-        array = (T[]) new Object[this.capacity];
+        array = (T[]) new Object[this.initialCapacity];
     }
 
     /**
@@ -37,8 +37,8 @@ public class ArrayQueue<T> implements Queue<T> {
         T[] old = array;
         array = (T[]) new Object[capacity];
         //复制元素
-        for (int i = 0; i < size; i++) {
-            array[i] = old[i];
+        if (size >= 0) {
+            System.arraycopy(old, 0, array, 0, size);
         }
     }
 
@@ -69,10 +69,11 @@ public class ArrayQueue<T> implements Queue<T> {
             expandCapacity((int) (size * GROWTH_RATE));//扩容
         }
         if (array.length == 0) {
-            array = (T[]) new Object[this.capacity];
+            array = (T[]) new Object[this.initialCapacity];
         }
         //从队尾添加元素
-        array[++rear] = data;
+        rear = rear + 1;
+        array[rear] = data;
         front = 0;
         size++;
     }
@@ -100,9 +101,7 @@ public class ArrayQueue<T> implements Queue<T> {
         rear--;
         T data = array[front];
         T[] temp = (T[]) new Object[size];
-        for (int i = 0; i < size; i++) {
-            temp[i] = array[i+1];
-        }
+        if (size >= 0) System.arraycopy(array, 1, temp, 0, size);
         this.array = temp;
         // 千万别忘了更新front
         if (this.array.length == 0) {
@@ -134,7 +133,7 @@ public class ArrayQueue<T> implements Queue<T> {
         } else {
             StringBuilder result = new StringBuilder ();
             for (int i = 0; i < this.size; i++) {
-                result.append (this.array[i] + " ");
+                result.append(this.array[i]).append(" ");
             }
             return result.deleteCharAt (result.length () - 1).toString ();
         }

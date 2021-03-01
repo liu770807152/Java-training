@@ -16,7 +16,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
 public class StackTest {
-    private boolean ArrayStack = false;
+    private boolean ArrayStack = true;
 
     @Rule
     public Timeout globalTimeout = Timeout.millis(500);

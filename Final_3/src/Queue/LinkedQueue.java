@@ -18,7 +18,7 @@ public class LinkedQueue<T> implements Queue<T>{
             StringBuilder result = new StringBuilder();
             for (Node temp = this; temp != null; temp = temp.next) {
                 if (temp.data != null) {
-                    result.append(temp.data + " ");
+                    result.append(temp.data).append(" ");
                 }
             }
             return result.length() == 0 ? "" : result.deleteCharAt(result.length() - 1).toString();
@@ -52,10 +52,9 @@ public class LinkedQueue<T> implements Queue<T>{
     /**
      * data 入队,添加成功返回true,否则返回false,可扩容
      * @param data
-     * @return
      */
     @Override
-    public void  push(T data) {
+    public void push(T data) {
         Node q = new Node(data,null);
         if (this.front == null) { // 空队列插入
             this.front = q;
@@ -79,7 +78,7 @@ public class LinkedQueue<T> implements Queue<T>{
 
     /**
      * 出队,执行删除操作,若队列为空,抛出异常:NoSuchElementException
-     * @return
+     * @return T
      */
     @Override
     public T pop() {

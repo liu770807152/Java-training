@@ -17,7 +17,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
 public class QueueTest {
-    private boolean ArrayQueue = false;
+    private boolean ArrayQueue = true;
 
     @Rule
     public Timeout globalTimeout = Timeout.millis(500);

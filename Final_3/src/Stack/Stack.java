@@ -1,16 +1,17 @@
 package Stack;
 
+// 后进先出
 public interface Stack<T> {
 
     /**
      * 栈是否为空
-     * @return
+     * @return boolean
      */
     boolean isEmpty();
 
     /**
      * 栈的元素数量
-     * @return
+     * @return int
      */
     int size();
 
@@ -22,19 +23,19 @@ public interface Stack<T> {
 
     /**
      * 返回栈顶元素,未出栈
-     * @return
+     * @return T
      */
     T peek();
 
     /**
      * 出栈,返回栈顶元素,同时从栈中移除该元素
-     * @return
+     * @return T
      */
     T pop();
 
     /**
      * 是否包含某元素
-     * @return
+     * @return boolean
      */
     boolean contains(T data);
 

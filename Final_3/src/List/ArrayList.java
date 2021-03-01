@@ -17,7 +17,9 @@ public class ArrayList<T> implements List<T>{
             }
             array = temp;
         }
-        array[size++] = value;
+        // array -> [] -> 1 -> 加之前size = 0
+        array[size] = value;
+        size = size + 1;
     }
 
     @Override
@@ -26,11 +28,9 @@ public class ArrayList<T> implements List<T>{
             throw new IndexOutOfBoundsException();
         }
         T[] temp = (T[]) new Object[--size];
-        for (int i = 0; i < index; i++) {
-            temp[i] = array[i];
-        }
-        for (int i = index; i < size; i++) {
-            temp[i] = array[i+1];
+        System.arraycopy(array, 0, temp, 0, index);
+        if (size - index >= 0) {
+            System.arraycopy(array, index + 1, temp, index, size - index);
         }
         array = temp;
     }

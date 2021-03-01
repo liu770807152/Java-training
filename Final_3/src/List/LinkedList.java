@@ -15,7 +15,7 @@ public class LinkedList<T> implements List<T>{
         public String toString() {
             StringBuilder result = new StringBuilder();
             for (Node temp = this; temp != null; temp = temp.next) {
-                result.append(temp.value + " ");
+                result.append(temp.value).append(" ");
             }
             return result.deleteCharAt(result.length() - 1).toString();
         }
@@ -26,6 +26,7 @@ public class LinkedList<T> implements List<T>{
         if (value == null) {
             return;
         }
+        // 判断当前链表是不是空的
         if (first == null) {
             first = last = new Node(value, null);
             size++;
@@ -58,7 +59,7 @@ public class LinkedList<T> implements List<T>{
             if (first == null) {
                 last = null;
             }
-            size--;
+            --size;
         }
         else {
             if (index >= size || index < 0) {
@@ -97,7 +98,7 @@ public class LinkedList<T> implements List<T>{
         return newFirst;
     }
 
-    private Node traditionalReversal(Node head) {
+    private Node traditionalReversal() {
         int indexOfLast = size - 1;
         Node temp = new Node(null, null);
         Node newLast = temp;
@@ -116,7 +117,7 @@ public class LinkedList<T> implements List<T>{
             return;
         }
         last = first;
-        first = traditionalReversal(first);
+        first = traditionalReversal();
         last.next = null;
     }
 

@@ -55,7 +55,7 @@ public class BSTMap<K, V> implements Map<K, V> {
                     if (this.kv.key == null) {
                         return this;
                     } else {
-                        return right == null ? null : right.find(key);
+                        return right == null ? null : right.find(key); // null -> 1
                     }
                 } else {
                     if (this.kv.key != null && this.kv.key.equals(key)) // found
@@ -147,7 +147,6 @@ public class BSTMap<K, V> implements Map<K, V> {
 
     @Override
     public String toString() {
-        String t = tree == null ? "" : tree.toString();
-        return t;
+        return tree == null ? "" : tree.toString();
     }
 }

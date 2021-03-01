@@ -11,14 +11,14 @@ public class ArrayStack<T> implements Stack<T> {
     /**
      * 容量大小默认为2
      */
-    private int capacity = 2;
+    private int initialCapacity = 2;
 
     private final double GROWTH_RATE = 1.5;
 
     /**
      * 存放元素的数组
      */
-    private T[] array = (T[]) new Object[this.capacity];
+    private T[] array = (T[]) new Object[this.initialCapacity];
 
     private int size;
 
@@ -27,7 +27,7 @@ public class ArrayStack<T> implements Stack<T> {
     }
 
     public ArrayStack() {
-        array = (T[]) new Object[this.capacity];
+        array = (T[]) new Object[this.initialCapacity];
     }
 
     @Override
@@ -48,8 +48,8 @@ public class ArrayStack<T> implements Stack<T> {
         T[] old = array;
         array = (T[]) new Object[capacity];
         //复制元素
-        for (int i = 0; i < size; i++) {
-            array[i] = old[i];
+        if (size >= 0) {
+            System.arraycopy(old, 0, array, 0, size);
         }
     }
 
@@ -71,18 +71,18 @@ public class ArrayStack<T> implements Stack<T> {
             expandCapacity((int) (size * GROWTH_RATE));//扩容
         }
         if (array.length == 0) {
-            array = (T[]) new Object[this.capacity];
+            array = (T[]) new Object[this.initialCapacity];
         }
         //从栈顶添加元素
-        array[++top] = data;
-
+        top = top + 1;
+        array[top] = data;
         size++;
     }
 
     /**
      * 获取栈顶元素的值,不删除
      *
-     * @return
+     * @return T
      */
     @Override
     public T peek() {
@@ -95,7 +95,7 @@ public class ArrayStack<T> implements Stack<T> {
     /**
      * 从栈顶(顺序表尾部)删除
      *
-     * @return
+     * @return T
      */
     @Override
     public T pop() {
@@ -103,10 +103,11 @@ public class ArrayStack<T> implements Stack<T> {
             throw new EmptyStackException();
         }
         size--;
-        T data = array[top--];
+        T data = array[top];
+        top = top - 1;
         T[] temp = (T[]) new Object[size];
-        for (int i = 0; i < size; i++) {
-            temp[i] = array[i];
+        if (size >= 0) {
+            System.arraycopy(array, 0, temp, 0, size);
         }
         this.array = temp;
         return data;
@@ -116,7 +117,7 @@ public class ArrayStack<T> implements Stack<T> {
      * 是否包含某元素
      *
      * @param data
-     * @return
+     * @return boolean
      */
     @Override
     public boolean contains(T data) {
@@ -138,7 +139,7 @@ public class ArrayStack<T> implements Stack<T> {
         } else {
             StringBuilder result = new StringBuilder ();
             for (int i = this.size - 1; i >= 0; i--) {
-                result.append (this.array[i] + " ");
+                result.append(this.array[i]).append(" ");
             }
             return result.deleteCharAt (result.length () - 1).toString ();
         }
